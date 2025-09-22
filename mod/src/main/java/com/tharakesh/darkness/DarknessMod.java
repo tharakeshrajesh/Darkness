@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
@@ -12,14 +13,12 @@ import net.minecraft.block.BedBlock;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.world.World;
-import net.minecraft.world.explosion.Explosion;
 
 public class DarknessMod implements ModInitializer {
     private int tickCounter = 0;
 
     private final int cycleLength = 1200; //24000
     private final int dayLength = 300; //6000
-    private final int nightLength = 900; // 18000
     private final float transitionTime = 100; // 200
 
     public int currentCycle = 0;
@@ -62,6 +61,7 @@ public class DarknessMod implements ModInitializer {
     private ActionResult onBlockInteract(PlayerEntity player, World world, Hand hand, BlockHitResult hit) {
         BlockPos blockpos = hit.getBlockPos();
         if (world.getBlockState(blockpos).getBlock() instanceof BedBlock) {
+            world.setBlockState(blockpos, Blocks.AIR.getDefaultState());
             world.createExplosion(null, (double)blockpos.getX(), (double)blockpos.getY(), (double)blockpos.getZ(), 6.0f, true, World.ExplosionSourceType.BLOCK);
             return ActionResult.CONSUME;
         }

@@ -4,5 +4,65 @@
     "sounds": [
       "darkness:augh"
     ]
+  },
+  "ah": {
+    "subtitle": "sound.darkness.ah",
+    "sounds": [
+      "darkness:ah"
+    ]
+  },
+  "fart": {
+    "subtitle": "sound.darkness.fart",
+    "sounds": [
+      "darkness:fart"
+    ]
+  },
+  "fnaf": {
+    "subtitle": "sound.darkness.fnaf",
+    "sounds": [
+      "darkness:fnaf"
+    ]
+  },
+  "milk": {
+    "subtitle": "sound.darkness.milk",
+    "sounds": [
+      "darkness:milk"
+    ]
+  },
+  "numberfifteen": {
+    "subtitle": "sound.darkness.numberfifteen",
+    "sounds": [
+      "darkness:numberfifteen"
+    ]
+  },
+  "ringtone": {
+    "subtitle": "sound.darkness.ringtone",
+    "sounds": [
+      "darkness:ringtone"
+    ]
+  },
+  "surprise": {
+    "subtitle": "sound.darkness.surprise",
+    "sounds": [
+      "darkness:surprise"
+    ]
+  },
+  "thx": {
+    "subtitle": "sound.darkness.thx",
+    "sounds": [
+      "darkness:thx"
+    ]
+  },
+  "vineboom": {
+    "subtitle": "sound.darkness.vineboom",
+    "sounds": [
+      "darkness:vineboom"
+    ]
+  },
+  "wilhelm": {
+    "subtitle": "sound.darkness.wilhelm",
+    "sounds": [
+      "darkness:wilhelm"
+    ]
   }
 }

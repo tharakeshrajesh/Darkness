@@ -19,7 +19,7 @@
 			"com.tharakesh.darkness.DarknessMod"
 		],
 		"client": [
-			
+          "com.tharakesh.darkness.DarknessClient"
 		]
 	},
 	"mixins": [

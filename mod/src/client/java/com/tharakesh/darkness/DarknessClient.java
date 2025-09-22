@@ -1,44 +1,71 @@
 package com.tharakesh.darkness;
 
 import net.fabricmc.api.ClientModInitializer;
-
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
-import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.block.Blocks;
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class DarknessClient implements ClientModInitializer {
-	public static final SoundEvent AUGH = registerSoundEvent("augh");	
+    List<SoundEvent> jumpscareSounds = new ArrayList<>();
 
-	@Override
+    private static final SoundEvent AUGH = registerSoundEvent("augh");
+    private static final SoundEvent AH = registerSoundEvent("ah");
+    private static final SoundEvent FART = registerSoundEvent("fart");
+    private static final SoundEvent FNAF = registerSoundEvent("fnaf");
+    private static final SoundEvent MILK = registerSoundEvent("milk");
+    private static final SoundEvent NUMBERFIFTEEN = registerSoundEvent("numberfifteen");
+    private static final SoundEvent RINGTONE = registerSoundEvent("ringtone");
+    private static final SoundEvent SURPRISE = registerSoundEvent("surprise");
+    private static final SoundEvent THX = registerSoundEvent("thx");
+    private static final SoundEvent VINEBOOM = registerSoundEvent("vineboom");
+    private static final SoundEvent WILHELM = registerSoundEvent("wilhelm");
+
+    private int tickCounter = 0;
+    Random random = new Random();
+    private int interval = 1200 + random.nextInt(6000);
+
+    @Override
     public void onInitializeClient() {
-        UseBlockCallback.EVENT.register(this::onBlockInteract);
+        jumpscareSounds.add(AUGH);
+        jumpscareSounds.add(AH);
+        jumpscareSounds.add(FART);
+        jumpscareSounds.add(FNAF);
+        jumpscareSounds.add(MILK);
+        jumpscareSounds.add(NUMBERFIFTEEN);
+        jumpscareSounds.add(RINGTONE);
+        jumpscareSounds.add(SURPRISE);
+        jumpscareSounds.add(THX);
+        jumpscareSounds.add(VINEBOOM);
+        jumpscareSounds.add(WILHELM);
+
+        ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
+            ClientTickEvents.END_CLIENT_TICK.register(this::onClientTick);
+            tickCounter = 0;
+        });
+
     }
 
-	private static SoundEvent registerSoundEvent(String name) {
-		Identifier id = Identifier.of("darkness", name);
-		return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
-	}
+    private static SoundEvent registerSoundEvent(String name) {
+        Identifier id = Identifier.of("darkness", name);
+        return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
+    }
 
-    private ActionResult onBlockInteract(PlayerEntity player, World world, Hand hand, BlockHitResult hit) {
-        BlockPos pos = hit.getBlockPos();
-
-        if (world.getBlockState(pos).getBlock() == Blocks.DIAMOND_BLOCK) {
-			System.out.println("Diamond block interacted");
-            player.playSound(AUGH, 1.0F, 1.0F);
-            return ActionResult.SUCCESS;
+    private void onClientTick(net.minecraft.client.MinecraftClient client) {
+        tickCounter++;
+        if (tickCounter == interval) {
+            if (client.player != null) {
+                SoundEvent randomSound = jumpscareSounds.get(random.nextInt(jumpscareSounds.size()));
+                client.player.playSound(randomSound, 10.0F, 1.0F);
+            }
+            tickCounter = 0;
+            interval = 100 + random.nextInt(6000);
         }
-
-        return ActionResult.PASS;
     }
 }
