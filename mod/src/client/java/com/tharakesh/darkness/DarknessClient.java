@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.client.render.entity.ZombieEntityRenderer;
+
 public class DarknessClient implements ClientModInitializer {
     List<SoundEvent> jumpscareSounds = new ArrayList<>();
 
@@ -45,6 +48,10 @@ public class DarknessClient implements ClientModInitializer {
         jumpscareSounds.add(VINEBOOM);
         jumpscareSounds.add(WILHELM);
 
+        EntityRendererRegistry.register(DarknessMod.BLACK_ENTITY, context ->
+                new ZombieEntityRenderer(context)
+        );
+
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
             ClientTickEvents.END_CLIENT_TICK.register(this::onClientTick);
             tickCounter = 0;
@@ -65,7 +72,7 @@ public class DarknessClient implements ClientModInitializer {
                 client.player.playSound(randomSound, 10.0F, 1.0F);
             }
             tickCounter = 0;
-            interval = 100 + random.nextInt(6000);
+            interval = 6000 + random.nextInt(201) - 100;
         }
     }
 }

@@ -3,7 +3,8 @@
 	"package": "com.tharakesh.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ExampleMixin"
+		"ExampleMixin",
+        "BeetrootMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

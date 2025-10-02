@@ -1,18 +1,17 @@
 {
 	"schemaVersion": 1,
-	"id": "modid",
-	"version": "${version}",
-	"name": "Example mod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"id": "darkness",
+	"version": "v1",
+	"name": "Darkness",
+	"description": "A funny horror mod. Not really horror but very annoying.",
 	"authors": [
-		"Me!"
+		"Tharakesh Rajesh"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/tharakesh/darkness"
 	},
-	"license": "CC0-1.0",
-	"icon": "assets/modid/icon.png",
+	"license": "MIT",
+	"icon": "assets/darkness/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
@@ -23,9 +22,9 @@
 		]
 	},
 	"mixins": [
-		"modid.mixins.json",
+		"darkness.mixins.json",
 		{
-			"config": "modid.client.mixins.json",
+			"config": "darkness.client.mixins.json",
 			"environment": "client"
 		}
 	],
